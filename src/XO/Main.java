@@ -12,9 +12,9 @@ public class Main {
 	            {0, 0, 0, 0, 0, 0, 0, 0, 0},
 	            {0, 0, 0, 0, 0, 0, 0, 0, 0},
 	            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-	            {0, 0, 0, 0, 0, 0, 0, 0, 0}
+	            {0, 0, 0, 0, 0, 0, 0, 0, 1}
 	        };
-		//test
+		
 		Game game = new Game(Board);
 		View view = new View();
 		Control control = new Control(game, view);
