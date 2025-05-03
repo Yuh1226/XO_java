@@ -41,8 +41,10 @@ public class Control {
 
                     if (s >= 9 && game.checkWinner() == 1) {
                         view.showMessage("Người chơi x thắng");
+                        return;
                     } else if (s >= 9 && game.checkWinner() == -1) {
                         view.showMessage("Người chơi o thắng");
+                        return;
                     }
                 } else {
                     view.showMessage("Đầu vào không hợp lệ! Vui lòng nhập lại.");
