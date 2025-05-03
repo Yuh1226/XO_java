@@ -22,8 +22,8 @@ public class Control {
             if (option == 1) { // nhập tọa độ
                 s = s + 1;
                 int[] input = view.getInput(s);
-                int x = input[0];
-                int y = input[1];
+                int x = input[0] - 1;
+                int y = input[1] - 1;
                 int value = input[2];
 
                 if (x >= 0 && x < 9 && y >= 0 && y < 9) {
@@ -35,7 +35,7 @@ public class Control {
                         game.getBoard()[x][y].setValue(value);
                         undoStack.push(new Move(x, y, oldValue, value));
                         redoStack.clear();
-                        
+
                         view.displayBoard(game.getBoard());
                     }
 
