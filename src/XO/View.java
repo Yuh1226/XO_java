@@ -41,7 +41,7 @@ public class View {
 	}
 
 	public int[] getInput(int index) {
-		System.out.print("coordinate : ");
+		System.out.print("Coordinate : ");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		int value;
