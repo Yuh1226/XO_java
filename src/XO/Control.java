@@ -64,7 +64,7 @@ public class Control {
                 return true;
             }
         } else {
-            view.showMessage("Đầu vào không hợp lệ! Vui lòng nhập lại.");
+            view.showMessage("Đầu vào không hợp lệ! Vui lòng nhập lại!.");
             return false;
         }
     }
