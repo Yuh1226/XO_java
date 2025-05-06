@@ -30,14 +30,15 @@ public class View {
 	}
 
 	public int getCommand() {
+		System.out.println();
 		System.out.println("====== GAME X/O MENU ======");
 		System.out.println("1. Play");
 		System.out.println("2. Undo ");
 		System.out.println("3. Redo ");
-		System.out.print("Nhấn lựa chọn, nhấn bất kì để thoát:");
+		System.out.print("Nhấn lựa chọn, nhấn bất kì để thoát: ");
 		// System.out.print("Option: ");
 		int a = scanner.nextInt();
-		System.out.println("==========================");
+		System.out.println("==========================\n");
 		return a;
 	}
 

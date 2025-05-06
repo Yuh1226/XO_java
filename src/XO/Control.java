@@ -16,32 +16,38 @@ public class Control {
     }
 
     public void run() {
-        view.displayBoard(game.getBoard());
-
-        int option = view.getCommand();
-        int s = 0;
+        // view.displayBoard(game.getBoard());
+        int turn = 0;
         while (!game.isFull()) {
-            if (option == 1) { // nhập tọa độ
-                play(s);
-
-            } else if (option == 2) { // undo
+            int option = view.getCommand();
+            view.displayBoard(game.getBoard());
+            if (option == 1) { 
+                play(++turn);
+                System.out.println("\n\n\n\n\n");
+                view.displayBoard(game.getBoard());
+            } else if (option == 2) { 
                 undo();
-
-            } else if (option == 3) { // redo
+            } else if (option == 3) { 
                 redo();
-
-            } else { // thoát
+            } else {
                 exit();
             }
-            // } else {
-            // view.showMessage("Lệnh không hợp lệ! Vui lòng thử lại.");
-            // }
+            if (game.checkWinner() == 1) {
+                view.showMessage("Người chơi X thắng");
+                view.displayBoard(game.getBoard());
+                return;
+            } else if (game.checkWinner() == -1) {
+                view.showMessage("Người chơi O thắng");
+                view.displayBoard(game.getBoard());
+                return;
+            }
         }
+        view.displayBoard(game.getBoard());
+        view.showMessage("Hai bên hoà nhau!");
     }
 
-    public void play(int s) {
-        s = s + 1;
-        int[] input = view.getInput(s);
+    public boolean play(int turn) {
+        int[] input = view.getInput(turn);
         int x = input[0] - 1;
         int y = input[1] - 1;
         int value = input[2];
@@ -49,25 +55,17 @@ public class Control {
         if (x >= 0 && x < 9 && y >= 0 && y < 9) {
             if (!game.isValidMove(x, y)) { // kiểm tra nước không hợp lệ
                 view.showMessage("Nước đi không hợp lệ! Vui lòng thử lại.");
-                view.displayBoard(game.getBoard());
+                return false;
             } else {
                 int oldValue = game.getBoard()[x][y].getValue();
                 game.getBoard()[x][y].setValue(value);
                 undoStack.push(new Move(x, y, oldValue, value));
                 redoStack.clear();
-
-                view.displayBoard(game.getBoard());
-            }
-
-            if (s >= 9 && game.checkWinner() == 1) {
-                view.showMessage("Người chơi x thắng");
-                return;
-            } else if (s >= 9 && game.checkWinner() == -1) {
-                view.showMessage("Người chơi o thắng");
-                return;
+                return true;
             }
         } else {
             view.showMessage("Đầu vào không hợp lệ! Vui lòng nhập lại.");
+            return false;
         }
     }
 
