@@ -79,7 +79,6 @@ public class Game {
         if (x < 0 || x >= 9 || y < 0 || y >= 9) {
             return false;
         }
-
         return board[x][y].getValue() == 0;
     }
 }

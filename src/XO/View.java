@@ -31,13 +31,14 @@ public class View {
 
 	public int getCommand() {
 		System.out.println("====== GAME X/O MENU ======");
-		System.out.println("1. Set");
+		System.out.println("1. Play");
 		System.out.println("2. Undo ");
 		System.out.println("3. Redo ");
-		System.out.println("4. Exit ");
+		System.out.print("Nhấn lựa chọn, nhấn bất kì để thoát:");
+		// System.out.print("Option: ");
+		int a = scanner.nextInt();
 		System.out.println("==========================");
-		System.out.print("Option(1-4): ");
-		return scanner.nextInt();
+		return a;
 	}
 
 	public int[] getInput(int index) {
@@ -49,7 +50,7 @@ public class View {
 			value = 1;
 		else
 			value = -1;
-		return new int[] { x, y, value };
+		return new int[] {x, y, value};
 	}
 
 	public void showMessage(String message) {
