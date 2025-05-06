@@ -76,8 +76,9 @@ public class Control {
             Move move = undoStack.pop();
             game.getBoard()[move.getRow()][move.getCol()].setValue(move.getOldValue());
             redoStack.push(move);
-            view.showMessage("Đã hoàn tác!");
+            System.out.println("\n\n\n\n\n");
             view.displayBoard(game.getBoard());
+            view.showMessage("Đã hoàn tác!");
         }
     }
 
@@ -89,8 +90,9 @@ public class Control {
             game.getBoard()[move.getRow()][move.getCol()].setValue(move.getNewValue());
             undoStack.push(
                     new Move(move.getRow(), move.getCol(), move.getOldValue(), move.getNewValue()));
-            view.showMessage("Đã làm lại!");
+            System.out.println("\n\n\n\n\n");
             view.displayBoard(game.getBoard());
+            view.showMessage("Đã làm lại!");
         }
     }
 
