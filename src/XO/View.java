@@ -43,7 +43,7 @@ public class View {
 	}
 
 	public int[] getInput(int index) {
-		System.out.print("Coordinate : ");
+		System.out.print("Nhập toạ độ(X, y): ");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		int value;
