@@ -22,7 +22,9 @@ public class Control {
             int option = view.getCommand();
             view.displayBoard(game.getBoard());
             if (option == 1) { 
+                System.out.printf("Lượt thứ: %d\n", turn+1);
                 play(++turn);
+                
                 System.out.println("\n\n\n\n\n");
                 view.displayBoard(game.getBoard());
             } else if (option == 2) { 
