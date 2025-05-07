@@ -24,7 +24,6 @@ public class Control {
             	// xác định lượt chơi
             	if (turn % 2 != 0) System.out.println("Lượt của người chơi X");
             	else System.out.println("Lượt của người chơi O");
-            	System.out.println(turn);
             	if (option == 1) {
             	    if (play(turn)) {
             	        turn++; // Chỉ tăng lượt khi người chơi đi thành công
