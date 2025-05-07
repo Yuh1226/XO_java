@@ -14,19 +14,23 @@ public class Control {
         this.undoStack = game.getUndoStack();
         this.redoStack = game.getRedoStack();
     }
-
+    
+    int turn = 1;
     public void run() {
-        // view.displayBoard(game.getBoard());
-        int turn = 0;
         while (!game.isFull()) {
             int option = view.getCommand();
-            view.displayBoard(game.getBoard());
-            if (option == 1) { 
-                System.out.printf("Lượt thứ: %d\n", turn+1);
-                play(++turn);
-                
-                System.out.println("\n\n\n\n\n");
-                view.displayBoard(game.getBoard());
+            if (option == 1) {
+            	view.displayBoard(game.getBoard());
+            	// xác định lượt chơi
+            	if (turn % 2 != 0) System.out.println("Lượt của người chơi X");
+            	else System.out.println("Lượt của người chơi O");
+            	System.out.println(turn);
+            	if (option == 1) {
+            	    if (play(turn)) {
+            	        turn++; // Chỉ tăng lượt khi người chơi đi thành công
+            	    }
+            	}
+            	
             } else if (option == 2) { 
                 undo();
             } else if (option == 3) { 
@@ -55,26 +59,29 @@ public class Control {
         int value = input[2];
 
         if (x >= 0 && x < 9 && y >= 0 && y < 9) {
-            if (!game.isValidMove(x, y)) { // kiểm tra nước không hợp lệ
-                view.showMessage("Nước đi không hợp lệ! Vui lòng thử lại.");
+            if (!game.isValidMove(x, y)) {
+            	// kiểm tra nước không hợp lệ
+            	view.displayBoard(game.getBoard(),"Nước đi không hợp lệ! Vui lòng thử lại.");
                 return false;
-            } else {
+            } else { 
+            	redoStack.clear();
                 int oldValue = game.getBoard()[x][y].getValue();
                 game.getBoard()[x][y].setValue(value);
                 undoStack.push(new Move(x, y, oldValue, value));
-                redoStack.clear();
                 return true;
             }
         } else {
-            view.showMessage("Đầu vào không hợp lệ! Vui lòng nhập lại!.");
+        	view.displayBoard(game.getBoard(),"Đầu vào không hợp lệ! Vui lòng nhập lại!.");
             return false;
         }
     }
 
     public void undo() {
         if (undoStack.isEmpty()) {
+        	view.displayBoard(game.getBoard());
             view.showMessage("Không có thao tác để hoàn tác!");
         } else {
+        	--turn;
             Move move = undoStack.pop();
             game.getBoard()[move.getRow()][move.getCol()].setValue(move.getOldValue());
             redoStack.push(move);
@@ -86,12 +93,15 @@ public class Control {
 
     public void redo() {
         if (redoStack.isEmpty()) {
+        	view.displayBoard(game.getBoard());
             view.showMessage("Không có thao tác để làm lại!");
         } else {
+        	++turn;
             Move move = redoStack.pop();
             game.getBoard()[move.getRow()][move.getCol()].setValue(move.getNewValue());
             undoStack.push(
-                    new Move(move.getRow(), move.getCol(), move.getOldValue(), move.getNewValue()));
+                    new Move(move.getRow(), move.getCol(), move.getOldValue(), move.getNewValue())
+                    	  );
             System.out.println("\n\n\n\n\n");
             view.displayBoard(game.getBoard());
             view.showMessage("Đã làm lại!");

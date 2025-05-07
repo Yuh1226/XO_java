@@ -9,7 +9,7 @@ public class View {
 		scanner = new Scanner(System.in);
 	}
 
-	public void displayBoard(Node[][] board) {
+	public void displayBoard(Node[][] board, String message) {
 		System.out.println("X/O Board:");
 		System.out.println(" ─── ─── ─── ─── ─── ─── ─── ─── ───");
 		for (int i = 0; i < 9; i++) {
@@ -27,6 +27,14 @@ public class View {
 				System.out.println("─── ─── ─── ─── ─── ─── ─── ─── ─── ");
 		}
 		System.out.println("─── ─── ─── ─── ─── ─── ─── ─── ───");
+		
+		if (message != null && !message.isEmpty()) {
+	        System.out.println(message);
+	    }
+	}
+	
+	public void displayBoard(Node[][] board) {
+	    displayBoard(board, null);
 	}
 
 	public int getCommand() {
@@ -43,7 +51,7 @@ public class View {
 	}
 
 	public int[] getInput(int index) {
-		System.out.print("Nhập toạ độ(X, y): ");
+		System.out.print("Nhập toạ độ(X, Y): ");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		int value;
