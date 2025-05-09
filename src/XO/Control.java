@@ -20,7 +20,7 @@ public class Control {
         while (!game.isFull()) {
             int option = view.getCommand();
             if (option == 1) {
-            	view.displayBoard(game.getBoard());
+            	
             	// xác định lượt chơi
             	if (turn % 2 != 0) System.out.println("Lượt của người chơi X");
             	else System.out.println("Lượt của người chơi O");
@@ -29,7 +29,7 @@ public class Control {
             	        turn++; // Chỉ tăng lượt khi người chơi đi thành công
             	    }
             	}
-            	
+            	view.displayBoard(game.getBoard());
             } else if (option == 2) { 
                 undo();
             } else if (option == 3) { 
