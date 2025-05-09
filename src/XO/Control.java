@@ -17,6 +17,7 @@ public class Control {
     
     int turn = 1;
     public void run() {
+    	view.displayBoard(game.getBoard());
         while (!game.isFull()) {
             int option = view.getCommand();
             if (option == 1) {

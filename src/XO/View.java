@@ -51,7 +51,7 @@ public class View {
 	}
 
 	public int[] getInput(int index) {
-		System.out.print("Nhập toạ độ(X, Y): ");
+		System.out.print("Nhập toạ độ(X, Y) (x:1-9 , y:1-9): ");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		int value;
