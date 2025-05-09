@@ -79,13 +79,13 @@ public class Game {
     }
 
     // dùng để reset bàn cờ
-    public void setBoard(int[][] Board) {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                board[i][j].setValue(Board[i][j]);
-            }
-        }
-        undoStack.clear();
-        redoStack.clear();
-    }
+    // public void setBoard(int[][] Board) {
+    //     for (int i = 0; i < BOARD_SIZE; i++) {
+    //         for (int j = 0; j < BOARD_SIZE; j++) {
+    //             board[i][j].setValue(Board[i][j]);
+    //         }
+    //     }
+    //     undoStack.clear();
+    //     redoStack.clear();
+    // }
 }
