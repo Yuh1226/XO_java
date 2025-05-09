@@ -40,27 +40,28 @@ public class View {
 	public int getCommand() {
 		System.out.println();
 		System.out.println("====== GAME X/O MENU ======");
-		System.out.println("1. Play");
+		System.out.println("1. Chơi");
 		System.out.println("2. Undo ");
 		System.out.println("3. Redo ");
-		System.out.print("Nhấn lựa chọn, nhấn bất kì để thoát: ");
-		// System.out.print("Option: ");
-		int a = scanner.nextInt();
-		System.out.println("==========================\n");
-		return a;
+		System.out.print("Nhấn lựa chọn, nhấn bất kỳ khác để thoát: ");
+		try {
+			int option = Integer.parseInt(scanner.nextLine());
+			System.out.println("==========================\n");
+			return option;
+		} catch (NumberFormatException e) {
+			return -1; // để thoát game
+		}
 	}
+	
+	
 
 	public int[] getInput(int index) {
-		System.out.print("Nhập toạ độ(X, Y) (x:1-9 , y:1-9): ");
+		System.out.print("Người chơi " + (index % 2 != 0 ? "X" : "O") + ", nhập toạ độ (x(1-9), y(1-9)): ");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
-		int value;
-		if (index % 2 != 0)
-			value = 1;
-		else
-			value = -1;
-		return new int[] {x, y, value};
-	}
+		scanner.nextLine(); // bỏ dòng thừa sau nextInt()
+		return new int[] { x, y };
+	}	
 
 	public void showMessage(String message) {
 		System.out.println(message);

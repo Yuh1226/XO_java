@@ -3,16 +3,19 @@ package XO;
 import java.util.Stack;
 
 public class Game {
+    private static final int BOARD_SIZE = 9;
+    private static final int WIN_LENGTH = 5;
+
     private Node[][] board;
     private Stack<Move> undoStack;
     private Stack<Move> redoStack;
 
     public Game(int[][] Board) {
-        board = new Node[9][9];
+        board = new Node[BOARD_SIZE][BOARD_SIZE];
         undoStack = new Stack<>();
         redoStack = new Stack<>();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 board[i][j] = new Node(i, j, Board[i][j]);
             }
         }
@@ -30,11 +33,11 @@ public class Game {
         return redoStack;
     }
 
-    private static boolean checkline(Node[][] Board, int x, int y, int dx, int dy, int win_length, int player) {
-        for (int k = 0; k < 5; k++) {
+    private static boolean checkline(Node[][] board, int x, int y, int dx, int dy, int player) {
+        for (int k = 0; k < WIN_LENGTH; k++) {
             int nx = x + k * dx;
             int ny = y + k * dy;
-            if (nx < 0 || nx >= 9 || ny < 0 || ny >= 9 || Board[nx][ny].getValue() != player) {
+            if (nx < 0 || nx >= BOARD_SIZE || ny < 0 || ny >= BOARD_SIZE || board[nx][ny].getValue() != player) {
                 return false;
             }
         }
@@ -42,31 +45,27 @@ public class Game {
     }
 
     public int checkWinner() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 int player = board[i][j].getValue();
-                if (player == 0)
-                    continue;
+                if (player == 0) continue;
 
-                // 4 hướng
-                if (checkline(board, i, j, 0, 1, 5, player))
-                    return player; // ngang
-                if (checkline(board, i, j, 1, 0, 5, player))
-                    return player; // dọc
-                if (checkline(board, i, j, 1, 1, 5, player))
-                    return player; // chéo chính
-                if (checkline(board, i, j, 1, -1, 5, player))
-                    return player; // chéo phụ
+                // Kiểm tra 4 hướng: ngang, dọc, chéo chính, chéo phụ
+                if (checkline(board, i, j, 0, 1, player) ||  // ngang
+                    checkline(board, i, j, 1, 0, player) ||  // dọc
+                    checkline(board, i, j, 1, 1, player) ||  // chéo chính
+                    checkline(board, i, j, 1, -1, player))   // chéo phụ
+                {
+                    return player;
+                }
             }
         }
-
         return 0; // chưa ai thắng
     }
 
-    // kiểm tra xem đầy ô chưa
     public boolean isFull() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j].getValue() == 0) {
                     return false;
                 }
@@ -76,9 +75,17 @@ public class Game {
     }
 
     public boolean isValidMove(int x, int y) {
-        if (x < 0 || x >= 9 || y < 0 || y >= 9) {
-            return false;
+        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && board[x][y].getValue() == 0;
+    }
+
+    // dùng để reset bàn cờ
+    public void setBoard(int[][] Board) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                board[i][j].setValue(Board[i][j]);
+            }
         }
-        return board[x][y].getValue() == 0;
+        undoStack.clear();
+        redoStack.clear();
     }
 }
